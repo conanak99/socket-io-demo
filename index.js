@@ -29,8 +29,8 @@ server.listen(3000, () => {
 async function broadcastCoinPrice() {
 	while (true) {
 		const price = 38345 + Math.random() * 300
-		io.emit('price', price.toFixed(3))
-		await delay(1000)
+		io.emit('price', parseFloat(price.toFixed(3)))
+		await delay(500)
 	}
 }
 

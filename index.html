@@ -35,7 +35,7 @@
 <script>
 	const socket = io();
 
-	const name = 'hoang'; // prompt('Bạn tên gì')
+	const name = prompt('Bạn tên gì?')
 	const nameSpan = document.querySelector('#name')
 	nameSpan.innerText = name
 
@@ -51,25 +51,23 @@
 			input.value = ''
 		}
 	})
-
+	const messages = document.querySelector('#messages')
 	socket.on('chat', (message) => {
 		const li = document.createElement('li')
 		li.textContent = `${message.name}: ${message.value}`
-		document.querySelector('#messages').appendChild(li)
+		messages.appendChild(li)
 	})
 
 	let lastPrice = 0
 	const priceSpan = document.querySelector('#price')
 	socket.on('price', (price) => {
-
-		const parsedPrice = parseFloat(price)
-		if (parsedPrice > lastPrice) {
+		if (price > lastPrice) {
 			priceSpan.className = 'up'
 		} else {
 			priceSpan.className = 'down'
 		}
-		lastPrice = parsedPrice
-		priceSpan.textContent = `${parsedPrice} USD`
+		lastPrice = price
+		priceSpan.textContent = `${price} USD`
 	})
 </script>
 
